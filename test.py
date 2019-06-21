@@ -1,1 +1,3 @@
-1
+import scrapy
+
+print(scrapy.version_info)
