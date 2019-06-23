@@ -1,4 +1,4 @@
 from scrapy import cmdline
 
 
-cmdline.execute("scrapy crawl block".split())
+cmdline.execute("scrapy crawl bishijie".split())

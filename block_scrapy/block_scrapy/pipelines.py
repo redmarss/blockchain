@@ -8,4 +8,5 @@
 
 class BlockScrapyPipeline(object):
     def process_item(self, item, spider):
+        item['href'] = item['href'][1:]
         return item
