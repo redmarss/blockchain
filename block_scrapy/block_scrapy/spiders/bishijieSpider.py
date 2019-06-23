@@ -19,5 +19,5 @@ class BishijiespiderSpider(scrapy.Spider):
             bsj['title'] = form.xpath('./h2/a/@title').extract_first()
             bsj['detail'] = form.xpath('./div/a/text()').getall()
 
-            yield bsj
+            yield bsj1
 
