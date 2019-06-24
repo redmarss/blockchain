@@ -21,3 +21,4 @@ class BishijiespiderSpider(scrapy.Spider):
 
             yield bsj
 
+        #处理下一页

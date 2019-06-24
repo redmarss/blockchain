@@ -15,5 +15,3 @@ class BlockScrapyItem(scrapy.Item):
     title = scrapy.Field()
     detail = scrapy.Field()
 
-    print('test')
-    print()
