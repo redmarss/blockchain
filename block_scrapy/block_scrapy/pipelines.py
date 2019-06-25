@@ -9,7 +9,9 @@ import pymysql.cursors
 class BlockScrapyPipeline(object):
     def process_item(self, item, spider):
         item['href'] = item['href'][1:]
-        item['detail'] = str.replace(item['detail'],'\n',' ')
+        item['detail'] = " ".join(item['detail']).strip()
+        print(type(item['detail']))
+        print(item['detail'])
         return item
 
 
@@ -27,7 +29,7 @@ class MySQLPipeline(object):
         self.cursor = self.connect.cursor()
 
     def process_item(self,item,spider):
-        sql = f"insert into news(news_id,title,detail) value ({item['href']},{item['title']},{item['detail']})"
+        sql = f"insert into news(news_id,title,detail) value ('{item['href']}','{item['title']}','{item['detail']}')"
         self.cursor.execute(sql)
         self.connect.commit()
         return item
