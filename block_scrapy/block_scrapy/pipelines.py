@@ -10,6 +10,9 @@ class BlockScrapyPipeline(object):
     def process_item(self, item, spider):
         item['href'] = item['href'][1:]
         item['detail'] = " ".join(item['detail']).strip()
+        #处理title 及 detail中的引号或双引号
+        item['title'] = pymysql.escape_string(item['title'])
+        item['detail'] = pymysql.escape_string(item['detail'])
         return item
 
 
@@ -27,7 +30,12 @@ class MySQLPipeline(object):
         self.cursor = self.connect.cursor()
 
     def process_item(self,item,spider):
-        sql = f"insert into news(news_id,time,title,detail) value ('{item['href']}','{item['time']}','{item['title']}','{item['detail']}')"
-        self.cursor.execute(sql)
-        self.connect.commit()
-        return item
+        sql_select = f"select * from news where news_id = '{item['href']}'"
+        result = self.cursor.fetchall()
+        if len(result)==0:
+            sql = f"insert into news(news_id,time,title,detail) value ('{item['href']}','{item['time']}','{item['title']}','{item['detail']}')"
+            self.cursor.execute(sql)
+            self.connect.commit()
+            return item
+        else:
+            return item
