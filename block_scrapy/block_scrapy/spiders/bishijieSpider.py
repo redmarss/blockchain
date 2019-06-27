@@ -23,7 +23,6 @@ class BishijiespiderSpider(scrapy.Spider):
             bsj['href'] = form.xpath('./ul/li/h2/a/@href').extract_first()
             bsj['title'] = form.xpath('./ul/li/h2/a/@title').extract_first()
             bsj['detail'] = form.xpath('./ul/li/div/a/text()').extract_first()
-            print()
 
             yield bsj
 

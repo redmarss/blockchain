@@ -1,6 +1,7 @@
 CREATE TABLE `blockchain`.`news` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `news_id` VARCHAR(45) NOT NULL,
+  `time` VARCHAR(30) NULL，
   `title` VARCHAR(100) NULL,
   `detail` TEXT NULL,
   PRIMARY KEY (`id`),

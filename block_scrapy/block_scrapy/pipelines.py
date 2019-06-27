@@ -31,11 +31,10 @@ class MySQLPipeline(object):
 
     def process_item(self,item,spider):
         sql_select = f"select * from news where news_id = '{item['href']}'"
+        self.cursor.execute(sql_select)
         result = self.cursor.fetchall()
         if len(result)==0:
             sql = f"insert into news(news_id,time,title,detail) value ('{item['href']}','{item['time']}','{item['title']}','{item['detail']}')"
             self.cursor.execute(sql)
             self.connect.commit()
-            return item
-        else:
             return item
