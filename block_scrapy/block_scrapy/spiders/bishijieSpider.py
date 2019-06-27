@@ -13,6 +13,7 @@ class BishijiespiderSpider(scrapy.Spider):
     def parse(self, response):
 
         for form in response.css('div.livetop'):
+            print(form)
             bsj = BlockScrapyItem()
             # bsj['time'] = form.xpath()
             # bsj['href'] = form.xpath('./div/a/@href').extract_first()
