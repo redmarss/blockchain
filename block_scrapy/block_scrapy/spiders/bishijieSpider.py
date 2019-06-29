@@ -11,19 +11,18 @@ class BishijiespiderSpider(scrapy.Spider):
 
 
     def parse(self, response):
+        date = response.css('div.livetop').attrib['class'][-10:]
 
-        for form in response.css('div.livetop'):
-            print(form)
+        for form in response.xpath('//ul[@data-path_type="1"]'):
             bsj = BlockScrapyItem()
             # bsj['time'] = form.xpath()
             # bsj['href'] = form.xpath('./div/a/@href').extract_first()
             # bsj['title'] = form.xpath('./h2/a/@title').extract_first()
             # bsj['detail'] = form.xpath('./div/a/text()').getall()
-            date = form.attrib['class'][-10:]
-            bsj['time'] =date + ' ' + form.xpath('./ul/span/text()').extract_first()
-            bsj['href'] = form.xpath('./ul/li/h2/a/@href').extract_first()
-            bsj['title'] = form.xpath('./ul/li/h2/a/@title').extract_first()
-            bsj['detail'] = form.xpath('./ul/li/div/a/text()').extract_first()
+            bsj['time'] =date + ' ' + form.xpath('./span/text()').extract_first()
+            bsj['href'] = form.xpath('./li/h2/a/@href').extract_first()
+            bsj['title'] = form.xpath('./li/h2/a/@title').extract_first()
+            bsj['detail'] = form.xpath('./li/div/a/text()').extract_first()
 
             yield bsj
 
