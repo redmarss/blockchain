@@ -11,14 +11,15 @@ class BishijiespiderSpider(scrapy.Spider):
 
 
     def parse(self, response):
+        #币世界/快讯
         date = response.css('div.livetop').attrib['class'][-10:]
-
         for form in response.xpath('//ul[@data-path_type="1"]'):
             bsj = BlockScrapyItem()
             # bsj['time'] = form.xpath()
             # bsj['href'] = form.xpath('./div/a/@href').extract_first()
             # bsj['title'] = form.xpath('./h2/a/@title').extract_first()
             # bsj['detail'] = form.xpath('./div/a/text()').getall()
+            bsj['source'] = 'bishijie.kuaixun'
             bsj['time'] =date + ' ' + form.xpath('./span/text()').extract_first()
             bsj['href'] = form.xpath('./li/h2/a/@href').extract_first()
             bsj['title'] = form.xpath('./li/h2/a/@title').extract_first()

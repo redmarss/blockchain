@@ -12,6 +12,7 @@ class BlockScrapyItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     time = scrapy.Field()
+    source = scrapy.Field()
     href = scrapy.Field()
     title = scrapy.Field()
     detail = scrapy.Field()

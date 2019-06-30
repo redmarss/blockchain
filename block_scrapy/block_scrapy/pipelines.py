@@ -35,7 +35,7 @@ class MySQLPipeline(object):
         result = self.cursor.fetchall()
         if len(result) == 0:
             try:
-                sql = f"insert into news(news_id,time,title,detail) value ('{item['href']}','{item['time']}','{item['title']}','{item['detail']}')"
+                sql = f"insert into news(news_id,time,source,title,detail) value ('{item['href']}','{item['time']}','{item['source']}','{item['title']}','{item['detail']}')"
                 self.cursor.execute(sql)
                 self.connect.commit()
                 return item
