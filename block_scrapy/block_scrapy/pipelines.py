@@ -8,11 +8,14 @@ import pymysql.cursors
 
 class BlockScrapyPipeline(object):
     def process_item(self, item, spider):
+        #去除item['href']的第一个字符‘/’
         item['href'] = item['href'][1:]
+        #去除item['detail']左右空格
         item['detail'] = "".join(item['detail']).strip()
         #处理title 及 detail中的引号或双引号
         item['title'] = pymysql.escape_string(item['title'])
         item['detail'] = pymysql.escape_string(item['detail'])
+
         return item
 
 
