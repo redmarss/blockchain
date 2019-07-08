@@ -15,7 +15,7 @@ class Bishijie_kuaixunSpider(scrapy.Spider):
             for form in xdate.xpath('./ul[@data-path_type="1"]'):
                 bsj = BlockScrapyItem()
                 bsj['source'] = 'bishijie.kuaixun'
-                bsj['time'] = date + form.xpath('./span/text()').extract_first()
+                bsj['time'] = date + ' ' + form.xpath('./span/text()').extract_first()
                 bsj['href'] = form.xpath('./li/h2/a/@href').extract_first()
                 bsj['title'] = form.xpath('./li/h2/a/@title').extract_first()
                 bsj['detail'] = form.xpath('./li/div/a/text()').extract_first()

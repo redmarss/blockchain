@@ -23,11 +23,11 @@ class MySQLPipeline(object):
     def __init__(self):
         #连接数据库
         self.connect = pymysql.connect(
-            host='127.0.0.1',
-            port=3306,
+            host='cdb-iar6zzqb.gz.tencentcdb.com',
+            port=10141,
             db='blockchain',
             user='root',
-            passwd='redmarss',
+            passwd='888@XyFxBm',
             charset='utf8'
         )
         self.cursor = self.connect.cursor()
