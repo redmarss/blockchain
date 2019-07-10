@@ -1,14 +1,10 @@
 #conding:utf-8
 
-import requests
-import re
+import jieba
+test = '''
+截至20:00，据58交易所官方永续合约数据，大户持仓情况如下：BTC永续合约账户中，多头平均持仓比例为16.00%、空头平均持仓比例为19.99%，空头暂时领先，领先数量（净头寸数量）为0.31万个BTC。
+EOS永续合约账户中，多头平均持仓比例为19.91%、空头平均持仓比例为15.42%，多头暂时领先，领先数量（净头寸数量）为336.87万个EOS。
+ETH永续合约账户中，多头平均持仓比例为19.01%、空头平均持仓比例为15.14%，多头暂时领先，领先数量（净头寸数量）为2.99万个ETH。
 
-starturl = "http://www.heibanke.com/lesson/crawler_ex00/"
-
-num = 0
-
-r = requests.get(starturl)
-reg = re.compile('<h3>(.*?)</h3>')
-
-f = re.findall(reg,r.text)
-print(f)
+'''
+print(list(jieba.cut(test,cut_all=False)))
