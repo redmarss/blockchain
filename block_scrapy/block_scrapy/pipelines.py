@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 import pymysql.cursors
+import jieba
 # Define your item pipelines here
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
+
+class JiebaPipeline(object):
+    pass
 
 
 class BlockScrapyPipeline(object):
@@ -17,6 +21,8 @@ class BlockScrapyPipeline(object):
         item['detail'] = pymysql.escape_string(item['detail'])
 
         return item
+
+
 
 
 class MySQLPipeline(object):
