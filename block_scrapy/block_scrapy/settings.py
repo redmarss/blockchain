@@ -65,8 +65,9 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
+   'block_scrapy.pipelines.JiebaPipeline': 299,
    'block_scrapy.pipelines.BlockScrapyPipeline': 300,
-   'block_scrapy.pipelines.MySQLPipeline':300,
+   'block_scrapy.pipelines.MySQLPipeline': 301,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

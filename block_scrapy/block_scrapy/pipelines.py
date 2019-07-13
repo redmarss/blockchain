@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from scrapy.exceptions import DropItem
 import pymysql.cursors
 import jieba
 # Define your item pipelines here
@@ -7,6 +8,7 @@ import jieba
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 class JiebaPipeline(object):
+    #读取停用词表
     pass
 
 
@@ -49,4 +51,4 @@ class MySQLPipeline(object):
                 self.connect.commit()
                 return item
             except:
-                print('error')
+                raise DropItem(f"写入数据库错误：{sql}")
