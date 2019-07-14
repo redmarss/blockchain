@@ -2,6 +2,7 @@
 from scrapy.exceptions import DropItem
 import pymysql.cursors
 import jieba
+jieba.load_userdict('./block_scrapy/dict/myword.txt')
 # Define your item pipelines here
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
@@ -9,7 +10,22 @@ import jieba
 
 class JiebaPipeline(object):
     #读取停用词表
-    pass
+    def __init__(self):
+        self.filepath = './block_scrapy/dict/stopword.txt'
+        self.stopwords = [line.strip() for line in open(self.filepath,'r',encoding='utf-8').read()]
+        self.outlist = []
+
+    def process_item(self,item,spider):
+        title = item['title']
+        title='币世界DApp活跃度梳理：四大公链DApp昨日活跃用户量总计207,627个'
+        title_seged = jieba.cut(title.strip())
+
+        for word in title_seged:
+            if word not in self.stopwords:
+                self.outlist.append(word)
+        print(self.outlist)
+        return item
+
 
 
 class BlockScrapyPipeline(object):
