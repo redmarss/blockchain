@@ -16,4 +16,4 @@ class BlockScrapyItem(scrapy.Item):
     href = scrapy.Field()
     title = scrapy.Field()
     detail = scrapy.Field()
-
+    tag = scrapy.Field()

@@ -11,19 +11,22 @@ jieba.load_userdict('./block_scrapy/dict/myword.txt')
 class JiebaPipeline(object):
     #读取停用词表
     def __init__(self):
-        self.filepath = './block_scrapy/dict/stopword.txt'
-        self.stopwords = [line.strip() for line in open(self.filepath,'r',encoding='utf-8').read()]
+        stopwordpath = './block_scrapy/dict/stopword.txt'
+        tagwordpath = './block_scrapy/dict/tagword.txt'
+        self.stopwords = [line.strip() for line in open(stopwordpath,'r',encoding='utf-8').read()]
+        self.tagwords = [line.strip().lower() for line in open(tagwordpath,'r',encoding='utf-8').readlines()]
         self.outlist = []
 
     def process_item(self,item,spider):
         title = item['title']
-        title='币世界DApp活跃度梳理：四大公链DApp昨日活跃用户量总计207,627个'
         title_seged = jieba.cut(title.strip())
-
+        title_seged = list(title_seged)
+        print(title_seged,type(title_seged))
         for word in title_seged:
             if word not in self.stopwords:
-                self.outlist.append(word)
-        print(self.outlist)
+                if word.lower() in self.tagwords:
+                    self.outlist.append(word)
+        item['tag'] = ','.join(self.outlist)
         return item
 
 
@@ -62,7 +65,7 @@ class MySQLPipeline(object):
         result = self.cursor.fetchall()
         if len(result) == 0:
             try:
-                sql = f"insert into news(news_id,time,source,title,detail) value ('{item['href']}','{item['time']}','{item['source']}','{item['title']}','{item['detail']}')"
+                sql = f"insert into news(news_id,time,source,tag,title,detail) value ('{item['href']}','{item['time']}','{item['source']}','{item['tag']}','{item['title']}','{item['detail']}')"
                 self.cursor.execute(sql)
                 self.connect.commit()
                 return item

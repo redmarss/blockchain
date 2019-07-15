@@ -3,6 +3,7 @@ CREATE TABLE `blockchain`.`news` (
   `news_id` VARCHAR(45) NOT NULL,
   `time` VARCHAR(30) NULL,
   `source` VARCHAR(50) NULL,
+  `tag` TEXT NULL,
   `title` VARCHAR(100) NULL,
   `detail` TEXT NULL,
   PRIMARY KEY (`id`),
