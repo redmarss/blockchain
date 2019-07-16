@@ -15,17 +15,18 @@ class JiebaPipeline(object):
         tagwordpath = './block_scrapy/dict/tagword.txt'
         self.stopwords = [line.strip() for line in open(stopwordpath,'r',encoding='utf-8').read()]
         self.tagwords = [line.strip().lower() for line in open(tagwordpath,'r',encoding='utf-8').readlines()]
-        self.outlist = []
+        self.outlist = None
 
     def process_item(self,item,spider):
+        self.outlist = []
         title = item['title']
         title_seged = jieba.cut(title.strip())
         title_seged = list(title_seged)
-        print(title_seged,type(title_seged))
         for word in title_seged:
             if word not in self.stopwords:
                 if word.lower() in self.tagwords:
-                    self.outlist.append(word)
+                    if word not in self.outlist:
+                        self.outlist.append(word)
         item['tag'] = ','.join(self.outlist)
         return item
 
